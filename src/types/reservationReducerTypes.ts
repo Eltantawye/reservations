@@ -1,4 +1,3 @@
-import { headCells } from "../components/reservationsList/reservationList";
 import { Reservation, SortOrder } from "./reservationTypes";
 
 export enum reservationReducerTypes {

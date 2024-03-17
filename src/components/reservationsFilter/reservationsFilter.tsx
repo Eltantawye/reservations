@@ -6,20 +6,14 @@ import {
 } from "@mui/x-date-pickers";
 import CustomSelect from "../reusable/customSelect";
 import useReservation from "../../hooks/useReservation";
-import { format, isValid, parse } from "date-fns";
-import { RESERVATION_DATE_FORMAT } from "../../constants/reservationConstants";
+import { format } from "date-fns";
+import {
+  AREAS,
+  RESERVATION_DATE_FORMAT,
+  RESERVATION_STATUSES,
+  SHIFTS,
+} from "../../constants/reservationConstants";
 import { reservationReducerTypes } from "../../types/reservationReducerTypes";
-
-const RESERVATION_STATUSES = [
-  "Confirmed",
-  "Seated",
-  "Checked out",
-  "Not confirmed",
-];
-
-const SHIFTS = ["breakfast", "lunch", "dinner"];
-
-const AREAS = ["MAIN ROOM", "BAR"];
 
 const SideFilter = () => {
   const {
@@ -71,7 +65,7 @@ const SideFilter = () => {
       >
         <Box>
           <DatePicker
-            label="Data"
+            label="Date"
             onChange={handleChangeDate}
             slotProps={{
               field: { clearable: true, onClear: () => handleDateClear() },

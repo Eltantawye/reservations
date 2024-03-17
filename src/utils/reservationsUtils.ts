@@ -4,6 +4,13 @@ import { RESERVATION_DATE_FORMAT } from "../constants/reservationConstants";
 
 const DATE_COLUMNS = ["businessDate", "start", "end"];
 
+/**
+ *
+ * @param reservations list of Reservations
+ * @param sortDir sort direction asc or desc
+ * @param columnKey column to be sorted
+ * @returns sorted Reservations list
+ */
 export const sortReservations = (
   reservations: Reservation[],
   sortDir: "asc" | "desc",
@@ -29,6 +36,10 @@ export const sortReservations = (
 
       result =
         parsedValueA < parsedValueB ? 1 : parsedValueA > parsedValueB ? -1 : 0;
+    } else if (columnKey === "customer") {
+      let columnA = valueA.customer.firstName;
+      let columnB = valueB.customer.firstName;
+      result = columnA < columnB ? 1 : columnA > columnB ? -1 : 0;
     } else {
       let columnA = valueA[columnKey as keyof Reservation] as string;
       let columnB = valueB[columnKey as keyof Reservation] as string;
@@ -39,13 +50,19 @@ export const sortReservations = (
   });
 };
 
+/**
+ *
+ * @param reservations list of Reservations
+ * @param filterOptions object contains all filters to be applied to the list
+ * @returns filtered list
+ */
+
 export const filterReservations = (
   reservations: Reservation[],
   filterOptions: { [filterKey: string]: string }
 ): Reservation[] => {
   const filterdReservations = reservations.filter(
     (reservation: Reservation) => {
-      // const isReservationStatus = !status || reservation.status === status;
       const appliedFilters = Object.entries(filterOptions).every(
         ([key, value]) => {
           if (value) {
@@ -61,7 +78,6 @@ export const filterReservations = (
       return appliedFilters;
     }
   );
-  //   return filterdTickets;
   return filterdReservations;
 };
 
@@ -69,7 +85,7 @@ export const getUpcomingReservations = (reservations: Reservation[]) => {
   const currentDate = new Date();
   return reservations.filter(
     (reservation) =>
-      parse(reservation.businessDate, RESERVATION_DATE_FORMAT, new Date()) >
+      parse(reservation.businessDate, RESERVATION_DATE_FORMAT, new Date()) >=
       currentDate
   );
 };
