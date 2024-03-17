@@ -1,7 +1,9 @@
 # Reservations App
 Is an app that helps restaurant owners manage
 their business better, by displaying upcoming reservations,
-so that they can take action on them## Demo link:
+so that they can take action on them
+
+## Demo link:
 Access demo link: https://reservations-pi.vercel.app/
 
 ## Table of Content:
